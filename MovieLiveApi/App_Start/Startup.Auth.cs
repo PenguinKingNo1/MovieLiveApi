@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using MovieLiveApi.Providers;
 using MovieLiveApi.Models;
+using MovieLiveApi.Infrastructure;
 
 namespace MovieLiveApi
 {
@@ -25,6 +26,7 @@ namespace MovieLiveApi
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -64,6 +66,17 @@ namespace MovieLiveApi
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+
+        private void ConfigureOAuthTokenGeneration(IAppBuilder app)
+        {
+            // Configure the db context and user manager to use a single instance per request
+            //Rest of code is removed for brevity
+
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
+
+            //Rest of code is removed for brevity
+
         }
     }
 }
